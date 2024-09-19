@@ -6,14 +6,11 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 
-
 @Entity
-data class Product(
+data class Article(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    val name: String,
-    val price: Double
-
+    val title: String,
+    val content: String,
 )
-
