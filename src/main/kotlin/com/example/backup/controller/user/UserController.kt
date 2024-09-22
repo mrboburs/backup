@@ -1,4 +1,4 @@
-package com.example.backup.controller
+package com.example.backup.controller.user
 
 import com.example.backup.entity.User
 import com.example.backup.service.UserService

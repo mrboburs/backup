@@ -1,4 +1,4 @@
-package com.example.backup.controller
+package com.example.backup.controller.article
 
 import com.example.backup.entity.Article
 import com.example.backup.service.ArticleService
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("/articles")
+@RequestMapping("/api/articles")
 class ArticleController @Autowired constructor(private val articleService: ArticleService) {
 
     // Create a new article

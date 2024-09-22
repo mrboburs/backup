@@ -1,8 +1,8 @@
 
 jwt:
   key: ${JWT_KEY}
-  access-token-expiration: 360000
-  refresh-token-expiration: 86400000
+  access-token-expiration: 3600000000
+  refresh-token-expiration: 864000000
 
 
 
