@@ -15,3 +15,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+telegram:
+  bot:
+    username: "MyFJavaBot"
+    token: "7218034229:AAH_nKLUiujNnvUwgmfbwzZL2IVurSqc-EU"
+    chanel-id: "@myjavachan"
+    file: "/home/bobur/test/backup.sql"

@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
 @EnableConfigurationProperties(JwtProperties::class)
-class Configuration {
+ class Configuration {
 
     @Bean
     fun userDetailsService(userRepository: UserRepository): UserDetailsService =

@@ -15,6 +15,7 @@ java {
 	}
 }
 
+
 repositories {
 	mavenCentral()
 }
@@ -28,20 +29,25 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
-
-
 	// for Jackson JSON parsing
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
-
-
 	implementation("jakarta.validation:jakarta.validation-api:3.0.2")
+
+
+	implementation("org.telegram:telegrambots:6.5.0")
+	implementation("org.telegram:telegrambots-spring-boot-starter:6.5.0")
+	implementation("javax.xml.bind:jaxb-api:2.3.1")
+	implementation("org.glassfish.jaxb:jaxb-runtime:2.3.1")
+
+	implementation("org.telegram:telegrambots-spring-boot-starter:6.8.0")
+	implementation("org.telegram:telegrambotsextensions:6.8.0")
+
+
 
 }
 
