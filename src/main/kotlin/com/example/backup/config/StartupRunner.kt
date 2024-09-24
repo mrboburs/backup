@@ -1,5 +1,6 @@
 package com.example.backup.config
 
+import com.example.backup.service.BackupService
 import com.example.backup.service.TelegramBotService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.CommandLineRunner
@@ -8,19 +9,26 @@ import java.io.File
 
 @Component
 class StartupRunner(
-    private val telegramBotService: TelegramBotService
+    private var telegramBotService: TelegramBotService,
+    private var backupService: BackupService
 
 ) : CommandLineRunner {
-    @Value("\${telegram.bot.chanel-id}") private val chanelid: String=""
-    @Value("\${telegram.bot.file}") private val filePath: String=""
-    override fun run(vararg args: String?) {
 
-        val file = File(filePath)
+    @Value("\${telegram.bot.chanel-id}")
+    private val chanelid: String = ""
+
+    @Value("\${telegram.bot.file}")
+    private val folderPath: String = ""
+    override fun run(vararg args: String?) {
+        backupService.start()
+//        val file = File(folderPath)
 
         // Handle the message
-        telegramBotService.sendFileToChannel(chanelid,
-            file,
-            "")
+        telegramBotService.sendFilesInFolderToChannel(
+            chanelid,
+            folderPath,
+
+            )
 
 
     }

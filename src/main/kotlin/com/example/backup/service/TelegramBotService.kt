@@ -25,17 +25,18 @@ class TelegramBotService : TelegramLongPollingBot() {
     }
 
     override fun onUpdateReceived(update: Update) {
-        println(28)
 
 
-//            val chatId = update.message.chatId
-//            println(chatId)
-            val file = File("/home/bobur/test/backup.sql")
-            // Handle the message
-            sendFileToChannel("@myjavachan",
-                file,
-                "")
-
+    }
+    fun sendFilesInFolderToChannel(channelId: String, folderPath: String) {
+        val folder = File(folderPath)
+        if (folder.exists() && folder.isDirectory) {
+            folder.listFiles()?.filter { it.isFile }?.forEach { file ->
+                sendFileToChannel(channelId, file)
+            }
+        } else {
+            println("The folder $folderPath does not exist or is not a directory.")
+        }
     }
 
     fun sendFileToChannel(channelId: String, file: File, caption: String? = null) {
