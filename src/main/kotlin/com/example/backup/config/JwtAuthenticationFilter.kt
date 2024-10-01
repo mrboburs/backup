@@ -1,7 +1,7 @@
 package com.example.backup.config
 
-import com.example.backup.service.CustomUserDetailsService
-import com.example.backup.service.TokenService
+import com.example.backup.user.service.CustomUserDetailsService
+import com.example.backup.auth.service.TokenService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

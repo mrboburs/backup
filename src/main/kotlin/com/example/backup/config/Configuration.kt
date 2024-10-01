@@ -1,7 +1,7 @@
 package com.example.backup.config
 
-import com.example.backup.service.CustomUserDetailsService
-import com.example.backup.repository.UserRepository
+import com.example.backup.user.service.CustomUserDetailsService
+import com.example.backup.user.repository.UserRepository
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
