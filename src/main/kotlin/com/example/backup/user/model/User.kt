@@ -7,10 +7,10 @@ import jakarta.persistence.*
 data class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val id: Long = 0,
     @Column(unique = true, nullable = false)
-    val email: String,
-    val password: String,
+    var email: String,
+    var password: String,
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

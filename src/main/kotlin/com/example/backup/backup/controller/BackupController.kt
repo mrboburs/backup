@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody
 
 @RestController
 @RequestMapping("/backup")
-class BackupController(
+ class BackupController(
     private val backupService: BackupService,
     private var telegramBotService: TelegramBotService,
 
@@ -34,7 +34,8 @@ class BackupController(
                     "backupFilePath" to it.backupFilePath
                 )
             }
-println(databases)
+
+       println(databases)
             // Pass the list to the backupService
             backupService.start(databases)
             telegramBotService.sendFilesInFolderToChannel(

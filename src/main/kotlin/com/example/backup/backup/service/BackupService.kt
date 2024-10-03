@@ -1,12 +1,12 @@
 package com.example.backup.backup.service
 
-import com.example.backup.dbconfig.service.DbConfigService
+import com.example.backup.dbconfig.service.DbConfigServiceImpl
 import org.springframework.stereotype.Service
 import java.io.BufferedReader
 import java.io.InputStreamReader
 @Service
 class BackupService(
-    private val dbConfigService: DbConfigService
+    private val dbConfigService: DbConfigServiceImpl
 ) {
 fun runBackup(){
     var dbConfigList = dbConfigService.findAll()
