@@ -39,6 +39,7 @@ class TelegramBotService : TelegramLongPollingBot() {
         deleteAllFilesInFolder(folderPath)
     }
 
+
     fun sendFileToChannel(channelId: String, file: File, caption: String? = null) {
         val inputFile = InputFile(file)
         val sendDocument = SendDocument()

@@ -16,6 +16,21 @@ class DbConfigServiceImpl(
     private val dbConfigRepository: DbConfigRepository
 ) : DbConfigService {
 
+    override  fun findByActiveStatus(isActive:Boolean): List<DbConfigDto> {
+        return    return dbConfigRepository.findByActiveStatus(isActive).map { dbConfig ->
+            DbConfigDto(
+                id = dbConfig.id,
+                dbUser = dbConfig.dbUser,
+                dbName = dbConfig.dbName,
+                password = dbConfig.password,
+                host = dbConfig.host,
+                port = dbConfig.port,
+                backupFilePath = dbConfig.backupFilePath,
+                isActive = dbConfig.isActive
+            )
+        }
+    }
+
     override  fun findByDbName(query:String): List<DbConfigDto> {
         return    return dbConfigRepository.findByDbName(query).map { dbConfig ->
             DbConfigDto(

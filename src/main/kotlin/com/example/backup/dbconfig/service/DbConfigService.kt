@@ -8,6 +8,8 @@ import com.example.backup.dbconfig.model.DbConfig
 
 
 interface DbConfigService {
+
+    fun findByActiveStatus(isActive:Boolean): List<DbConfigDto>
     fun findByDbName(query:String): List<DbConfigDto>
 
     fun getActiveDbConfigs(): List<DbConfigDto>

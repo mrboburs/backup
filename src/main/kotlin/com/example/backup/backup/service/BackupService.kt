@@ -1,31 +1,95 @@
 package com.example.backup.backup.service
 
-import com.example.backup.dbconfig.service.DbConfigServiceImpl
+import com.example.backup.dbconfig.repository.DbConfigRepository
+import com.example.backup.dbconfig.service.DbConfigService
+import com.example.backup.exception.EntityNotFoundException
+import com.example.backup.exception.InactiveDatabaseException
+import org.springframework.beans.factory.annotation.Value
+
 import org.springframework.stereotype.Service
 import java.io.BufferedReader
 import java.io.InputStreamReader
+
 @Service
 class BackupService(
-    private val dbConfigService: DbConfigServiceImpl
+    private val dbConfigService: DbConfigService,
+    private val dbConfigRepository: DbConfigRepository,
+    private var telegramBotService: TelegramBotService,
 ) {
-fun runBackup(){
-    var dbConfigList = dbConfigService.findAll()
+    @Value("\${telegram.bot.chanel-id}")
+    private val chanelid: String = ""
 
-    for (i in dbConfigList.indices){
-        if (dbConfigList[i].isActive==true){
-            backupDatabase(
-                port = dbConfigList[i].port.toString(),
-                host = dbConfigList[i].host,
-                dbUser = dbConfigList[i].dbUser,
-                dbName = dbConfigList[i].dbName,
-                dbPassword = dbConfigList[i].password,
-                backupFilePath = dbConfigList[i].backupFilePath,
+    @Value("\${telegram.bot.file}")
+    private val folderPath: String = ""
 
-                )
+    fun backupByActiveStatus(isActive: Boolean) {
+
+
+        var dbConfigList = dbConfigService.findByActiveStatus(isActive)
+
+        for (i in dbConfigList.indices) {
+            if (dbConfigList[i].isActive == true) {
+                backupDatabase(
+                    port = dbConfigList[i].port.toString(),
+                    host = dbConfigList[i].host,
+                    dbUser = dbConfigList[i].dbUser,
+                    dbName = dbConfigList[i].dbName,
+                    dbPassword = dbConfigList[i].password,
+                    backupFilePath = dbConfigList[i].backupFilePath,
+
+                    )
+            }
+
+            telegramBotService.sendFilesInFolderToChannel(
+                chanelid,
+                folderPath
+
+            )
+
         }
+    }
+
+    fun getBackupById(id: Long): String {
+        val existingDbConfig = dbConfigRepository.findById(id)
+            .orElseThrow { EntityNotFoundException() }
+        if (!existingDbConfig.isActive) {
+            throw InactiveDatabaseException()
+        }
+        backupDatabase(
+            port = existingDbConfig.port.toString(),
+            host = existingDbConfig.host,
+            dbUser = existingDbConfig.dbUser,
+            dbName = existingDbConfig.dbName,
+            dbPassword = existingDbConfig.password,
+            backupFilePath = existingDbConfig.backupFilePath,
+
+            )
+
+        return existingDbConfig.backupFilePath
 
     }
-}
+
+    fun runBackup() {
+
+
+        var dbConfigList = dbConfigService.findAll()
+
+        for (i in dbConfigList.indices) {
+            if (dbConfigList[i].isActive == true) {
+                backupDatabase(
+                    port = dbConfigList[i].port.toString(),
+                    host = dbConfigList[i].host,
+                    dbUser = dbConfigList[i].dbUser,
+                    dbName = dbConfigList[i].dbName,
+                    dbPassword = dbConfigList[i].password,
+                    backupFilePath = dbConfigList[i].backupFilePath,
+
+                    )
+            }
+
+        }
+    }
+
     fun start(
         databases: List<Map<String, String>>
     ) {
@@ -40,7 +104,6 @@ fun runBackup(){
                 dbConfig["backupFilePath"]!!
             )
         }
-
 
 
     }
@@ -69,7 +132,9 @@ fun runBackup(){
             val reader = BufferedReader(InputStreamReader(process.inputStream))
             var line: String?
             while (reader.readLine().also { line = it } != null) {
+                println(101)
                 println(line)
+                println(103)
             }
 
             // Wait for the process to complete

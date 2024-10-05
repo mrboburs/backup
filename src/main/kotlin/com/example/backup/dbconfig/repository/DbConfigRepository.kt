@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository
 @Repository
 interface DbConfigRepository : JpaRepository<DbConfig, Long>{
 
+    // Custom query using @Query annotation with a parameter
+    @Query("SELECT d FROM DbConfig d WHERE d.isActive = :isActive")
+    fun findByActiveStatus(isActive: Boolean): List<DbConfig>
 
     @Query("SELECT d FROM DbConfig d WHERE LOWER(d.dbName) LIKE LOWER(CONCAT('%', :query, '%'))")
     fun findByDbName(@Param("query") query: String): List<DbConfig>

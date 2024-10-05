@@ -5,11 +5,9 @@ package com.example.backup.backup.controller
 import com.example.backup.backup.service.BackupService
 import com.example.backup.backup.service.TelegramBotService
 import com.example.backup.backup.dto.BackupRequest
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import com.example.backup.util.ResponseData
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/backup")
@@ -18,6 +16,32 @@ import org.springframework.web.bind.annotation.RequestBody
     private var telegramBotService: TelegramBotService,
 
     ) {
+
+    // Get an dbConfig by ID
+    @GetMapping("/is-active/{isActive}")
+    fun backupByActiveStatus(
+        @PathVariable isActive: Boolean
+    ): ResponseEntity<ResponseData> {
+        val res = backupService.backupByActiveStatus(isActive)
+        return   ResponseEntity.ok(
+            ResponseData(
+                res,
+            )
+        )
+    }
+
+    // Get an dbConfig by ID
+     @GetMapping("/{id}")
+     fun getDbConfigById(
+       @PathVariable id: Long
+    ): ResponseEntity<ResponseData> {
+        val res = backupService.getBackupById(id)
+        return   ResponseEntity.ok(
+            ResponseData(
+            res,
+        )
+        )
+    }
 
     @PostMapping("/start")
     fun startBackup(@RequestBody backupRequest: BackupRequest): ResponseEntity<String> {
