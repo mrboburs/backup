@@ -16,7 +16,7 @@ interface BackupController {
 
     // Get an dbConfig by ID
     @GetMapping("/{id}")
-    fun getDbConfigById(
+    fun getBackupById(
         @PathVariable id: Long
     ): ResponseEntity<ResponseData>
 

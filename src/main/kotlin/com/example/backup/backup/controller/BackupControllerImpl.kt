@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*
     }
 
     // Get an dbConfig by ID
-   override  fun getDbConfigById(
+   override  fun getBackupById(
       id: Long
     ): ResponseEntity<ResponseData> {
         val res = backupService.getBackupById(id)
