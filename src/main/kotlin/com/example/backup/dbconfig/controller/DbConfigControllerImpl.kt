@@ -68,6 +68,8 @@ class DbConfigControllerImpl(
     override fun getDbConfigById(
         id: Long
     ): ResponseEntity<ResponseData> {
+//        val currentDir = System.getProperty("user.dir")
+//        println("Current directory: $currentDir")
         val dbConfig = dbConfigService.findById(id)
          return   ResponseEntity.ok(ResponseData(
               dbConfig,

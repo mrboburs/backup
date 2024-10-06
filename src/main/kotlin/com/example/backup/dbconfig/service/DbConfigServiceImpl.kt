@@ -8,6 +8,7 @@ import com.example.backup.dbconfig.repository.DbConfigRepository
 import com.example.backup.exception.DuplicateEntityException
 
 import com.example.backup.exception.EntityNotFoundException
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service
 class DbConfigServiceImpl(
     private val dbConfigRepository: DbConfigRepository
 ) : DbConfigService {
-
+    @Value("\${telegram.bot.file}") private val folderPath: String = ""
     override  fun findByActiveStatus(isActive:Boolean): List<DbConfigDto> {
         return    return dbConfigRepository.findByActiveStatus(isActive).map { dbConfig ->
             DbConfigDto(
@@ -70,7 +71,7 @@ class DbConfigServiceImpl(
             password = createDbConfigDto.password,
             host = createDbConfigDto.host,
             port = createDbConfigDto.port,
-            backupFilePath = createDbConfigDto.backupFilePath,
+            backupFilePath =folderPath+"/"+createDbConfigDto.backupFilePath,
             isActive = createDbConfigDto.isActive,
             )
         try {
