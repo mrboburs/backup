@@ -11,18 +11,18 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 @Service
-class BackupService(
+class BackupServiceImpl(
     private val dbConfigService: DbConfigService,
     private val dbConfigRepository: DbConfigRepository,
     private var telegramBotService: TelegramBotService,
-) {
+):BackupService {
     @Value("\${telegram.bot.chanel-id}")
     private val chanelid: String = ""
 
     @Value("\${telegram.bot.file}")
     private val folderPath: String = ""
 
-    fun backupByActiveStatus(isActive: Boolean) {
+ override   fun backupByActiveStatus(isActive: Boolean) {
 
 
         var dbConfigList = dbConfigService.findByActiveStatus(isActive)
@@ -49,7 +49,7 @@ class BackupService(
         }
     }
 
-    fun getBackupById(id: Long): String {
+  override  fun getBackupById(id: Long): String {
         val existingDbConfig = dbConfigRepository.findById(id)
             .orElseThrow { EntityNotFoundException() }
         if (!existingDbConfig.isActive) {
@@ -69,7 +69,7 @@ class BackupService(
 
     }
 
-    fun runBackup() {
+   override fun runBackup() {
 
 
         var dbConfigList = dbConfigService.findAll()
@@ -90,7 +90,7 @@ class BackupService(
         }
     }
 
-    fun start(
+   override fun start(
         databases: List<Map<String, String>>
     ) {
 

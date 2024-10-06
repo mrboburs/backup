@@ -29,9 +29,9 @@ interface DbConfigController {
    ): ResponseEntity<ResponseData>
 
 
-   @GetMapping("/search/{query}")
+   @GetMapping("/search")
    fun findByDbName(
-     @PathVariable query: String
+     @RequestParam query: String
    ): ResponseEntity<ResponseData>
 
     @GetMapping

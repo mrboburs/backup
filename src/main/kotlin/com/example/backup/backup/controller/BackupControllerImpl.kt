@@ -2,25 +2,26 @@ package com.example.backup.backup.controller
 
 
 
-import com.example.backup.backup.service.BackupService
+
 import com.example.backup.backup.service.TelegramBotService
 import com.example.backup.backup.dto.BackupRequest
+import com.example.backup.backup.service.BackupService
 import com.example.backup.util.ResponseData
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/backup")
- class BackupController(
+
+ class BackupControllerImpl(
     private val backupService: BackupService,
     private var telegramBotService: TelegramBotService,
 
-    ) {
+    ):BackupController {
 
     // Get an dbConfig by ID
-    @GetMapping("/is-active/{isActive}")
-    fun backupByActiveStatus(
-        @PathVariable isActive: Boolean
+
+  override  fun backupByActiveStatus(
+       isActive: Boolean
     ): ResponseEntity<ResponseData> {
         val res = backupService.backupByActiveStatus(isActive)
         return   ResponseEntity.ok(
@@ -31,9 +32,8 @@ import org.springframework.web.bind.annotation.*
     }
 
     // Get an dbConfig by ID
-     @GetMapping("/{id}")
-     fun getDbConfigById(
-       @PathVariable id: Long
+   override  fun getDbConfigById(
+      id: Long
     ): ResponseEntity<ResponseData> {
         val res = backupService.getBackupById(id)
         return   ResponseEntity.ok(
@@ -43,8 +43,10 @@ import org.springframework.web.bind.annotation.*
         )
     }
 
-    @PostMapping("/start")
-    fun startBackup(@RequestBody backupRequest: BackupRequest): ResponseEntity<String> {
+
+  override  fun startBackup(
+        backupRequest: BackupRequest
+    ): ResponseEntity<String> {
 
         return try {
             // Convert the list of DatabaseConfig objects to a list of maps

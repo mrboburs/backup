@@ -1,6 +1,6 @@
 package com.example.backup.config
 
-import com.example.backup.backup.service.BackupService
+import com.example.backup.backup.service.BackupServiceImpl
 import com.example.backup.backup.service.TelegramBotService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.CommandLineRunner
@@ -10,7 +10,7 @@ import java.util.*
 @Component
 class StartupRunner(
     private var telegramBotService: TelegramBotService,
-    private var backupService: BackupService
+    private var backupService: BackupServiceImpl
 
 ) : CommandLineRunner {
 
